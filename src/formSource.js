@@ -1,76 +1,32 @@
-export const userInput = [
+export const productInput = [
   {
     id: 1,
-    label: "Username",
+    label: "Title",
     type: "text",
-    placeholder: "john_doe",
+    placeholder: "Iphone 14",
   },
   {
     id: 2,
-    label: "Name and surname",
+    label: "Description",
     type: "text",
-    placeholder: "John Doe",
+    placeholder: "Description",
   },
   {
     id: 3,
-    label: "Email",
-    type: "email",
-    placeholder: "john_doe@gmail.com",
+    label: "Category",
+    type: "text",
+    placeholder: "Phone",
   },
   {
     id: 4,
-    label: "Phone",
+    label: "Price",
     type: "text",
-    placeholder: "2345432123",
+    placeholder: "100",
   },
   {
     id: 5,
-    label: "Password",
-    type: "password",
-  },
-  {
-    id: 6,
-    label: "Adress",
+    label: "Stock",
     type: "text",
-    placeholder: "Nizami st.",
-  },
-  {
-    id: 7,
-    label: "Country",
-    type: "text",
-    placeholder: "Baku",
+    placeholder: "in stock",
   },
 ];
-
-export const productInput = [
-    {
-        id: 1,
-        label: "Title",
-        type: "text",
-        placeholder: "Iphone 14", 
-    },
-    {
-        id: 2,
-        label: "Description",
-        type: "text",
-        placeholder: "Description", 
-    },
-    {
-        id: 3,
-        label: "Category",
-        type: "text",
-        placeholder: "Phone", 
-    },
-    {
-        id: 4,
-        label: "Price",
-        type: "text",
-        placeholder: "100", 
-    },
-    {
-        id: 5,
-        label: "Stock",
-        type: "text",
-        placeholder: "in stock", 
-    },
-]

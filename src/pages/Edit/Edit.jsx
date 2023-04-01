@@ -1,13 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./new.scss";
 import Sidebar from "../../component/sidebar/Sidebar";
 import Navbar from "../../component/navbar/Navbar";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 
-const New = () => {
+const Edit = () => {
   const history = useNavigate();
+  const { id } = useParams();
+
   const [state, setState] = useState({
     name: "",
     details: "",
@@ -47,15 +49,29 @@ const New = () => {
 
     data.append("name", name);
     data.append("details", details);
-    data.append("featured", featured);
     data.append("price", Number(price));
+    data.append("featured", featured);
     data.append("productImage", productImage);
 
     axios
-      .post(`http://localhost:5000/api/products`, data)
-      .then((res) => history.push("/"))
+      .put(`http://localhost:5000/api/products/${id}`, data)
+      .then((res) => history.push(`/products/${id}`))
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    axios(`http://localhost:5000/api/products/${id}`)
+      .then((res) => {
+        setState({
+          name: res.data.name,
+          details: res.data.details,
+          price: res.data.price,
+        });
+        setFeatured(res.data.featured);
+        setPreviewImage(`http://localhost:5000/${res.data.productImage}`);
+      })
+      .catch((err) => console(err));
+  }, [id]);
 
   return (
     <div className="new">
@@ -63,18 +79,13 @@ const New = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>New Product</h1>
+          <h1>Edit Product</h1>
         </div>
         <div className="bottom">
           <div className="left">
-            <img
-              src={
-                previewImage
-                  ? previewImage
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
+            {previewImage && (
+              <img className="preview-image" src={previewImage} alt="preview" />
+            )}
           </div>
           <div className="right">
             <form onSubmit={handleSubmit}>
@@ -127,7 +138,6 @@ const New = () => {
                   onChange={(e) => setFeatured(e.target.checked)}
                 />
               </div>
-
               <button>Send</button>
             </form>
           </div>
@@ -137,4 +147,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default Edit;

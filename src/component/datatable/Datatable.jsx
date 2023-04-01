@@ -1,47 +1,68 @@
 import "./datatable.scss";
-import { DataGrid } from '@mui/x-data-grid';  
-import {userColums, userRows} from "../../datasource";
-import {Link} from "react-router-dom";
-
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Datatable = () => {
+  const [products, setProducts] = useState([]);
 
-  const actionColumn = [
-    {
-      field:"action",
-      headerName:"Action",
-      width:200,
-      renderCell:()=>{
-        return (
-          <div className="cellAction">
-            <Link to="/users/test" className="link">
-            <div className="viewButton">View</div>
-            </Link>
-            <div className="deleteButton">Delete</div>
-          </div>
-        )
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/products/")
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-      }
-    }
-  ]
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/products/${id}`)
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.log(err));
+  };
   return (
-    <div className="datatable">
-      <div style={{ height: 500, width: "100%" }}>
-        <div className="dataTableTitle">
-          Add New User
-          <Link to="/users/new">
+    <div className="data-table">
+      <div className="title">
+        <Link to="/products/new" className="add-new">
           Add New
-          </Link>
-        </div>
-        <DataGrid
-        className="datagrid"
-          rows={userRows  }
-          columns={userColums.concat(actionColumn)}
-          pageSize={7}
-          rowsPerPageOptions={[7]}
-          checkboxSelection
-        />
+        </Link>
       </div>
+      <table>
+        <thead>
+          <tr>
+            <th className="id">Id</th>
+            <th className="imgTitle">Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Detailed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product, index) => (
+            <tr key={index} className="body">
+              <td className="id">{product.id}</td>
+              <td className="img">
+                <img
+                  src={`http://localhost:5000/${product.productImage}`}
+                  alt="product"
+                />
+              </td>
+              <td className="name">{product.name}</td>
+              <td>{product.price} $</td>
+              <td>
+                <button
+                  className="delete"
+                  onClick={() => handleDelete(product.id)}
+                >
+                  Delete
+                </button>
+                <Link to={`/products/${product.id}/edit`} className="edit">
+                  Edit
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

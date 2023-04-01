@@ -1,59 +1,49 @@
-.datatable {
-  height: 600px;
-  padding: 20px;
-  .dataTableTitle{
+.data-table {
+  .id{
+    width: 15%;
+  }
+  .title {
     width: 100%;
-    font-size: 24px;
-    color: gray;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .link{
-      text-decoration: none;
-      color: green;
-      font-size: 16px;
-      font-weight: 400;
-      border: 1px solid green;
-      border-radius: 5px;
-      cursor: pointer;
+    padding: 30px;
+  }
+  table {
+    width: 100%;
+    height: auto;
+    thead {
+      width: 100%;
+      height: 60px;
+      .imgTitle {
+        width: 10%;
+      }
     }
-  }
-  .cell {
-    display: flex;
-    align-items: center;
-  }
+    tbody {
+      text-align: center;
+      .body {
+        width: 100%;
+        height: 100%;
+        .img {
+          width: 10%;
+          height: 30px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+        .name {
+          width: 25%;
+        }
 
-  .cellWithStatus {
-    padding: 5px;
-    border-radius: 5px;
-
-    &.active {
-      background-color: rgba(0, 128, 0, 0.05);
-      color: rgba(0, 128, 0, 0.807);
-    }
-    &.passive {
-      background-color: rgba(0, 128, 0, 0.05);
-      color: rgba(255, 0, 0, 0.703);
-    }
-  }
-  .cellAction {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    .viewButton {
-      padding: 2px 5px;
-      border-radius: 5px;
-      color: darkblue;
-      border: 1px dotted rgba(0, 0, 139, 0.596);
-      cursor: pointer;
-    }
-    .deleteButton {
-      padding: 2px 5px;
-      border-radius: 5px;
-      color: crimson;
-      border: 1px dotted rgba(220, 20, 60, 0.6);
-      cursor: pointer;
+        .delete {
+          margin-right: 10px;
+          color: red;
+          cursor: pointer;
+        }
+        .edit {
+          color: green;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
